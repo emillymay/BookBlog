@@ -1,8 +1,8 @@
-// src/pages/LoginPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../services/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import '../style/Login.css'; // Import the CSS file
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -15,7 +15,7 @@ const LoginPage = () => {
     setError('');
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/profile'); //direct to the profile page upon successful login
+      navigate('/profile'); // Direct to the profile page upon successful login
     } catch (err) {
       // Firebase error messages to user-friendly messages
       if (err.code === 'auth/invalid-email' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
@@ -27,9 +27,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
+    <div className="login-page">
       <h1>Login</h1>
-      {error && <p>{error}</p>}
+      {error && <p style={{ color: '#d9534f' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <label>
           Email:

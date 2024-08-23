@@ -1,0 +1,58 @@
+/* Styling for the post-review form */
+.post-review-form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 25px;
+    background-color: #fff; /* White background for the form */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .post-review-form h1 {
+    text-align: center;
+    color: #333; /* Darker text color */
+    margin-bottom: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+  
+  .post-review-form .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .post-review-form label {
+    display: block;
+    margin-bottom: 8px; /* Smaller margin for label */
+    font-size: 1rem;
+    color: #333;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+  }
+  
+  .post-review-form input,
+  .post-review-form textarea {
+    width: 100%;
+    padding: 8px; /* Thinner entry lines */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .post-review-form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #8eac8b; /* Match button color from signup page */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .post-review-form button:hover {
+    background-color: #fff; /* White highlight on hover */
+    border: 1px solid #8eac8b;
+    color: #333;
+    transform: scale(1.05); /* Slightly enlarge text on hover */
+  }
+  

@@ -1,0 +1,60 @@
+/* Styling for the login page */
+.login-page {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  height: 100vh;
+  background: #f7f7f7;
+  padding: 80px;
+}
+  
+  .login-page h1 {
+    font-size: 2em; /* Larger font size for heading */
+    color: #333; /* Darker color for heading text */
+    margin-bottom: 20px; /* Space between heading and form */
+    font-family: Georgia, 'Times New Roman', Times, serif;}
+
+  
+  .login-page form {
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 550px; /* Set max-width for form */
+    background: #fff; /* White background for the form */
+  }
+  
+  .login-page label {
+    display: block;
+    margin-bottom: 8px; /* Smaller margin for label */
+    font-size: 1rem;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #333;
+  }
+  
+  .login-page input[type="email"],
+  .login-page input[type="password"] {
+    width: 100%;
+    padding: 8px; /* Thinner entry lines */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .login-page button {
+    width: 100%;
+    padding: 10px;
+    background: #8eac8b; 
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #333;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .login-page button:hover {
+    background-color: #7b9a7c; /* Darker shade for hover effect */
+    transform: scale(1.05); /* Slightly enlarge button on hover */
+  }

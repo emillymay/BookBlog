@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage';
 import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
 import BookPage from './pages/BookPage';
+import AboutUs from './pages/AboutUs';
 import BookDetailPage from './pages/BookDetailPage';
 import PostReviewForm from './pages/PostReviewForm';
 import ProfilePage from './pages/ProfilePage'; // Ensure to import the ProfilePage
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="/book-page" element={<BookPage />} />
             <Route path="/bookdetail/:id" element={<BookDetailPage />} />
             <Route path="/post-review/:id" element={<PostReviewForm />} />
+            <Route path='/about-us' element={<AboutUs />}/>
             <Route path="/profile" element={<ProfilePage />} /> {/* Add this route if not added already */}
           </Routes>
         </main>

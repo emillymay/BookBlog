@@ -1,0 +1,75 @@
+.signup-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f7f7f7;
+  padding: 20px;
+  position: relative; /* Allows positioning of child elements */
+}
+
+.signup-page form {
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 550px; /* Smaller width for form */
+  margin: 55px 0;
+}
+.signup-page form h1 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.signup-page label {
+  display: block;
+  margin-bottom: 8px; /* Smaller margin for label */
+  font-size: 1rem;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: #333;
+}
+
+.signup-page input[type="text"],
+.signup-page input[type="email"],
+.signup-page input[type="password"] {
+  width: 100%;
+  padding: 8px; /* Thinner entry lines */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.signup-page button {
+  width: 100%;
+  padding: 10px;
+  background: #8eac8b; 
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #333;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.signup-page button:hover {
+  text-transform: bold;
+}
+
+.signup-page .faux-message {
+  max-width: 500px;
+  color: #555;
+  font-size: 1.2rem;
+  padding: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  text-align: center; /* Center the text */
+}
+
+.signup-page .signup-logo {
+  display: block;
+  margin: 0 auto 20px; /* Center the image and add margin at the bottom */
+  max-width: 150px; /* Adjust the size as needed */
+}
+
+.signup-page .success-message  {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+
+}
