@@ -73,3 +73,11 @@
   font-family: Georgia, 'Times New Roman', Times, serif;
 
 }
+
+
+.error-message {
+  color: black;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+

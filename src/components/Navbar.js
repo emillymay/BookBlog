@@ -27,7 +27,7 @@ const NavBar = () => {
       {/* Center Links */}
       <div className="navbar-center">
         <Link to="/book-page" className="navbar-item">All Books</Link>
-        <Link to="/book-page?month=current" className="navbar-item">This Month's Reviews</Link> {/* Link to current month's reviews */}
+        <Link to="/book-page?month=August" className="navbar-item">This Month's Reviews</Link> {/* Link to current month's reviews */}
         <Link to="/about-us" className="navbar-item">
           <FontAwesomeIcon icon={faInfoCircle} className="nav-icon" />
           About Us

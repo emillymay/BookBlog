@@ -58,3 +58,12 @@
     background-color: #7b9a7c; /* Darker shade for hover effect */
     transform: scale(1.05); /* Slightly enlarge button on hover */
   }
+
+
+  
+
+.error-message {
+  color: black;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}

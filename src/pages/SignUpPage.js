@@ -18,6 +18,7 @@ const SignUpPage = () => {
 
   const handleSignUp = async (event) => {
     event.preventDefault();
+    setError('');
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await setDoc(doc(db, 'users', userCredential.user.uid), {
@@ -30,8 +31,28 @@ const SignUpPage = () => {
       // Set success state
       setSuccess(true);
     } catch (error) {
-      console.error('Error signing up:', error);
-      setError('Error signing up. Please try again.');
+      let errorMessage = 'Error signing up. Please try again.';
+      switch (error.code) {
+        case 'auth/invalid-email':
+          errorMessage = 'The email address is badly formatted.';
+          break;
+        case 'auth/email-already-in-use':
+          errorMessage = 'The email address is already in use by another account.';
+          break;
+        case 'auth/weak-password':
+          errorMessage = 'The password must be at least 6 characters.';
+          break;
+        case 'auth/missing-email':
+          errorMessage = 'Please enter an email address.';
+          break;
+        case 'auth/missing-password':
+          errorMessage = 'Please enter a password.';
+          break;
+        default:
+          errorMessage = 'An unexpected error occurred. Please try again.';
+          break;
+      }
+      setError(errorMessage);
     }
   };
 

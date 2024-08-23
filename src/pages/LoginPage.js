@@ -17,27 +17,53 @@ const LoginPage = () => {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/profile'); // Direct to the profile page upon successful login
     } catch (err) {
-      // Firebase error messages to user-friendly messages
-      if (err.code === 'auth/invalid-email' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
-        setError('Invalid credentials, please try again.');
-      } else {
-        setError('An error occurred, please try again.');
+      let errorMessage = 'An error occurred, please try again.';
+      switch (err.code) {
+        case 'auth/invalid-email':
+          errorMessage = 'The email address is badly formatted.';
+          break;
+        case 'auth/user-not-found':
+          errorMessage = 'No user found with this email address.';
+          break;
+        case 'auth/wrong-password':
+          errorMessage = 'The password is incorrect.';
+          break;
+        case 'auth/missing-email':
+          errorMessage = 'Please enter your email address.';
+          break;
+        case 'auth/missing-password':
+          errorMessage = 'Please enter your password.';
+          break;
+        default:
+          errorMessage = 'An unexpected error occurred. Please try again.';
+          break;
       }
+      setError(errorMessage);
     }
   };
 
   return (
     <div className="login-page">
       <h1>Login</h1>
-      {error && <p style={{ color: '#d9534f' }}>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit}>
         <label>
           Email:
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </label>
         <label>
           Password:
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
         </label>
         <button type="submit">Login</button>
       </form>
