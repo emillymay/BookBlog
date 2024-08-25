@@ -1,53 +1,24 @@
 /* NavBar.css */
 
 .navbar {
+  background-color: white; /* White background */
+  font-family: Georgia, serif; /* Georgia font family */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f7f7f7; /* Adjust as needed */
   padding: 10px 20px;
-  border-bottom: 1px solid #ddd;
+  box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-item {
-  color: #333;
-  text-decoration: none;
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 1rem;
-  padding: 0 10px;
-  transition: color 0.3s ease;
+  color: black; /* Black text */
+  text-decoration: none; /* No underline */
+  margin: 0 15px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none; /* No border */
 }
 
 .navbar-item:hover {
-  color: #8eac8b; /* Adjust hover color as needed */
+  transform: scale(1.05); /* Slightly scales the text on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light grey box shadow on hover */
 }
-
-.navbar-center {
-  display: flex;
-  align-items: center;
-}
-
-.navbar-center .navbar-item {
-  margin-right: 20px; /* Space between links */
-}
-
-.navbar-button {
-  background: #8eac8b;
-  color: #fff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.navbar-button:hover {
-  background: #7f9a6d; /* Adjust hover color as needed */
-  transform: scale(1.05);
-}
-
-.nav-icon {
-  margin-right: 5px;
-}
-

@@ -39,7 +39,7 @@ const HomePage = () => {
   };
 
   const handleNavigateToCurrentMonthReviews = () => {
-    const currentMonth = moment().format('MMMM'); // e.g., "August"
+    const currentMonth = moment().format('MMMM'); 
     navigate(`/book-page?month=${currentMonth}`);
   };
 

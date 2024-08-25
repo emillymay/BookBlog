@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../services/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import '../style/Login.css'; // Import the CSS file
+import '../style/Login.css'; 
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -15,7 +15,7 @@ const LoginPage = () => {
     setError('');
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/profile'); // Direct to the profile page upon successful login
+      navigate('/profile'); 
     } catch (err) {
       // Firebase error messages to user-friendly messages
       if (err.code === 'auth/invalid-email' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {

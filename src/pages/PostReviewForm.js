@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { db } from '../services/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { useAuth } from '../context/AuthContext';
-import '../style/PostReviewForm.css'; // Import CSS file
+import '../style/PostReviewForm.css'; 
 
 const PostReviewForm = () => {
   const { id } = useParams();

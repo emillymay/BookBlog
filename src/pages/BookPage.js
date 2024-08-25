@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../services/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import '../style/BookPage.css';
 import moment from 'moment';
 
@@ -13,6 +13,7 @@ const BookPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const booksPerPage = 10;
   const navigate = useNavigate();
+  const location = useLocation(); // Hook to access the current location
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -67,22 +68,28 @@ const BookPage = () => {
   }, [filterMonth, searchQuery, filterRating, currentPage]);
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
+    const searchParams = new URLSearchParams(location.search);
     const month = searchParams.get('month');
 
     if (month) {
       setFilterMonth(month);
+    } else {
+      // Reset filters and search when navigating to "All Books"
+      setSearchQuery('');
+      setFilterMonth('');
+      setFilterRating('');
     }
-  }, []);
+  }, [location.search]);
 
   const handleNavigateToBookDetail = (id) => {
     navigate(`/bookdetail/${id}`);
   };
+
   const renderStars = (rating) => {
     const stars = [];
     const fullStars = Math.floor(rating);
     const halfStar = rating % 1 >= 0.5;
-  
+
     for (let i = 1; i <= 5; i++) {
       if (i <= fullStars) {
         stars.push(
@@ -112,7 +119,7 @@ const BookPage = () => {
     }
     return stars;
   };
-  
+
   return (
     <div className="book-page">
       <h1>All Books</h1>
