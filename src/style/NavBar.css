@@ -1,0 +1,24 @@
+/* NavBar.css */
+
+.navbar {
+  background-color: white; /* White background */
+  font-family: Georgia, serif; /* Georgia font family */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  box-shadow: 0 4px 2px -2px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-item {
+  color: black; /* Black text */
+  text-decoration: none; /* No underline */
+  margin: 0 15px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none; /* No border */
+}
+
+.navbar-item:hover {
+  transform: scale(1.05); /* Slightly scales the text on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light grey box shadow on hover */
+}

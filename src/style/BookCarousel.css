@@ -1,0 +1,29 @@
+.book-carousel {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  margin: 20px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-item {
+  flex: 0 0 auto;
+  width: 33.33%; /* Display 3 items in a row */
+  transition: transform 0.5s ease;
+}
+
+.carousel-item img {
+  width: 100%; /* Ensure the image fits its container */
+  border-radius: 8px;
+}
+
+.carousel-item.active {
+  transform: scale(1.1); /* Slightly expand the center item */
+}

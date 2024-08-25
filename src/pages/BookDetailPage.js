@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { db } from '../services/firebase';
 import { doc, getDoc, collection, query, where, getDocs, setDoc, Timestamp } from 'firebase/firestore';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import '../style/BookDetailPage.css';
 
 const BookDetailPage = () => {
-  const { id } = useParams(); // Get book details
+  const { id } = useParams();
   const { currentUser } = useAuth();
   const [book, setBook] = useState(null);
-  const [reviews, setReviews] = useState([]); // Get reviews
+  const [reviews, setReviews] = useState([]);
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState(0);
-  const [error, setError] = useState(''); // Error messages
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // Fetch book details and reviews
   useEffect(() => {
     const fetchBook = async () => {
       try {
@@ -64,13 +63,12 @@ const BookDetailPage = () => {
       setError('Rating must be between 0 and 5.');
       return;
     }
-    
+
     try {
-      // Get the user's nickname from Firebase Authentication
       const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
       const userData = userDoc.data();
       const userNickname = userData.nickname || currentUser.displayName || currentUser.email;
-  
+
       const newReview = {
         bookId: id,
         bookTitle: book?.title || '',
@@ -79,19 +77,18 @@ const BookDetailPage = () => {
         rating,
         timestamp: Timestamp.fromDate(new Date()),
         userId: currentUser.uid,
-        userName: userNickname, // Use nickname here
+        userName: userNickname,
       };
-  
+
       await setDoc(doc(db, 'reviews', `${currentUser.uid}_${Date.now()}`), newReview);
 
       setReviews(prevReviews => [newReview, ...prevReviews]);
+
       const allRatings = [...reviews.map(review => review.rating), rating];
       const totalRating = allRatings.reduce((acc, r) => acc + r, 0);
-      const updatedRating = totalRating / allRatings.length; // Calculate the average rating
+      const updatedRating = totalRating / allRatings.length;
+      const normalizedRating = Math.min(Math.max(updatedRating, 0), 5);
 
-      const normalizedRating = Math.min(Math.max(updatedRating, 1), 5);
-
-      // Update the book's rating
       await setDoc(doc(db, 'books', id), { starRating: normalizedRating }, { merge: true });
 
       setReviewText('');
@@ -102,39 +99,57 @@ const BookDetailPage = () => {
       setError('Failed to post review');
     }
   };
-
+  const renderStars = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars.push(<i key={i} className="fas fa-star"></i>); // Filled star
+      } else if (i === Math.ceil(rating) && !Number.isInteger(rating)) {
+        stars.push(<i key={i} className="fas fa-star-half-alt"></i>); // Half-filled star
+      } else {
+        stars.push(<i key={i} className="far fa-star"></i>); // Empty star
+      }
+    }
+    return stars;
+  };
+  
   if (!book) {
     return <p>Loading book details...</p>;
   }
 
   return (
-    <div>
+    <div className='book-detail-page'>
       <h1>{book.title} by {book.author}</h1>
       <p>{book.description}</p>
-      <p>Rating: {book.starRating ? book.starRating.toFixed(1) : 'No rating yet'}</p>
+      <div className='rating-stars'>
+        Rating: {book.starRating ? book.starRating.toFixed(1) : 'No rating yet'}
+        <div>{renderStars(book.starRating || 0)}</div>
+      </div>
 
-      {error && <p>{error}</p>}
-      <button onClick={handleBackClick} style={{ margin: '10px', padding: '10px' }}>
-        Back to Book Page
-      </button>
       <h2>Reviews</h2>
-      <ul>
+      <div className='review-list'>
         {reviews.map(review => (
-          <li key={review.id}>
-            <p><strong>{review.userName}</strong> rated {review.rating} stars:</p>
+          <div key={review.id} className='review-item'>
+            <p className="rating-stars">
+              <strong>{review.userName}</strong> rated {renderStars(review.rating)}</p>
             <p>{review.reviewText}</p>
             <p><em>{new Date(review.timestamp.toDate()).toLocaleString()}</em></p>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
+
       <form onSubmit={handleSubmit}>
+        <label className='form-label' htmlFor='review-text'>Review</label>
         <textarea
+          id='review-text'
           value={reviewText}
           onChange={(e) => setReviewText(e.target.value)}
           placeholder="Write your review here"
           required
         />
+        <label className='form-label' htmlFor='rating'>Star Rating</label>
         <input
+          id='rating'
           type="number"
           value={rating}
           onChange={(e) => setRating(Number(e.target.value))}
@@ -143,8 +158,13 @@ const BookDetailPage = () => {
           placeholder="Rating (0-5)"
           required
         />
+        {error && <p className='error-message'>{error}</p>}
         <button type="submit">Post Review</button>
       </form>
+      
+      <button className='back-button' onClick={handleBackClick}>
+        Back to Book Page
+      </button>
     </div>
   );
 };

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../services/firebase';
-import { collection, query, where, getDocs, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, deleteDoc, doc, updateDoc, getDoc } from 'firebase/firestore';
 import { useAuth } from '../context/AuthContext';
+import '../style/ProfilePage.css';
 
 const ProfilePage = () => {
   const { currentUser } = useAuth();
   const [reviews, setReviews] = useState([]);
+  const [nickname, setNickname] = useState('');
   const [editingReviewId, setEditingReviewId] = useState(null);
   const [editedReviewText, setEditedReviewText] = useState('');
   const [editedRating, setEditedRating] = useState(0);
@@ -23,7 +25,20 @@ const ProfilePage = () => {
       }
     };
 
+    const fetchUserNickname = async () => {
+      try {
+        const userDoc = doc(db, 'users', currentUser.uid);
+        const userSnapshot = await getDoc(userDoc); // Use getDoc
+        if (userSnapshot.exists()) {
+          setNickname(userSnapshot.data().nickname);
+        }
+      } catch (error) {
+        console.error('Error fetching user nickname:', error);
+      }
+    };
+
     fetchUserReviews();
+    fetchUserNickname();
   }, [currentUser.uid]);
 
   const handleDeleteReview = async (reviewId) => {
@@ -61,15 +76,50 @@ const ProfilePage = () => {
     }
   };
 
+  const renderStars = (rating) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5;
+  
+    for (let i = 1; i <= 5; i++) {
+      if (i <= fullStars) {
+        stars.push(
+          <i
+            key={i}
+            className="fa fa-star"
+            aria-hidden="true"
+          />
+        );
+      } else if (i === fullStars + 1 && halfStar) {
+        stars.push(
+          <i
+            key={i}
+            className="fa fa-star-half-o"
+            aria-hidden="true"
+          />
+        );
+      } else {
+        stars.push(
+          <i
+            key={i}
+            className="fa fa-star empty"
+            aria-hidden="true"
+          />
+        );
+      }
+    }
+    return stars;
+  };
+
   return (
-    <div>
-      <h1>Your Profile</h1>
-      <h2>Your Reviews</h2>
-      <ul>
+    <div className="profile-page">
+      <h1>{nickname ? `${nickname}` : 'My Profile'}</h1>
+      <h2>Past Written Reviews</h2>
+      <ul className="review-list">
         {reviews.map(review => (
-          <li key={review.id}>
+          <li key={review.id} className="review-item">
             {editingReviewId === review.id ? (
-              <div>
+              <div className="edit-review">
                 <input
                   type="text"
                   value={editedReviewText}
@@ -88,7 +138,7 @@ const ProfilePage = () => {
               <div>
                 <h3>{review.bookTitle}</h3> 
                 <p>{review.reviewText}</p>
-                <p>Rating: {review.rating}/5</p>
+                <p className="review-rating">Rating: {renderStars(review.rating)}</p>
                 <button onClick={() => handleEditReview(review)}>Edit</button>
                 <button onClick={() => handleDeleteReview(review.id)}>Delete</button>
               </div>

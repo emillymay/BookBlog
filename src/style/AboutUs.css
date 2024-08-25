@@ -1,0 +1,48 @@
+.about-us {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .about-us h1, .about-us h2 {
+    font-family: 'Georgia', serif;
+    color: #333;
+  }
+  
+  .about-us p, .about-us ul {
+    font-family: 'Georgia', serif;
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  .about-us ul {
+    list-style: disc;
+    padding-left: 20px;
+  }
+  
+  .about-us li {
+    margin-bottom: 10px;
+  }
+  
+  .about-us .creator, .about-us .subscribe, .about-us .background-story {
+    margin-bottom: 30px;
+  }
+  
+  .about-us .subscribe ul {
+    padding-left: 0;
+    list-style: none;
+  }
+  
+  .about-us .subscribe li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .about-us .subscribe li:last-child {
+    border-bottom: none;
+  }
+  
